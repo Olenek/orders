@@ -18,6 +18,14 @@
         "entryPath": "/test-resources"
       },
       "description": "SAPUI5 Test Resources"
+    },
+    {
+      "path": "/iot",
+      "target": {
+        "type": "destination",
+        "name": "iot"
+      },
+      "description": "iot"
     }
   ],
   "sendWelcomeFileRedirect": true

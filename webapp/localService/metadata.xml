@@ -1,0 +1,45 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+	<edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+		<Schema xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+			xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns="http://schemas.microsoft.com/ado/2008/09/edm"
+			Namespace="iot.iot">
+			<EntityType Name="IOT_VSPType">
+				<Key><PropertyRef Name="ID_VSP"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="NAME_VSP" Type="Edm.String" MaxLength="40"/><Property Name="ADDRESS" Type="Edm.String" MaxLength="100"/><Property Name="WATER_CAPACITY" Type="Edm.Int32"/><Property Name="WATER_MIN" Type="Edm.Int32"/><NavigationProperty Name="DEVICES" Relationship="iot.iot.VSP_DEVICESType" FromRole="IOT_VSPPrincipal" ToRole="IOT_MAPDependent"/></EntityType>
+			<EntityType Name="IOT_DEVICE_DATAType">
+				<Key><PropertyRef Name="DEV_DATA_ID"/></Key><Property Name="DEV_DATA_ID" Type="Edm.String" Nullable="false" MaxLength="2147483647"/><Property Name="G_DEVICE" Type="Edm.String" MaxLength="255"/><Property Name="G_CREATED" Type="Edm.DateTime"/><Property Name="C_WEIGHT" Type="Edm.Double"/><Property Name="C_DISTANCE" Type="Edm.Double"/></EntityType>
+			<EntityType Name="IOT_MAPType">
+				<Key><PropertyRef Name="ID_VSP"/><PropertyRef Name="G_DEVICE"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="G_DEVICE" Type="Edm.String" Nullable="false" MaxLength="255"/></EntityType>
+			<EntityType Name="IOT_FORECASTType">
+				<Key><PropertyRef Name="FOR_DATE"/></Key><Property Name="FOR_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="IOT_FACTType">
+				<Key><PropertyRef Name="ID_VSP"/><PropertyRef Name="F_DATE"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="F_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="IOT_RESERVEType">
+				<Key><PropertyRef Name="R_DATE"/><PropertyRef Name="R_TYPE"/></Key><Property Name="R_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="R_TYPE" Type="Edm.Int32" Nullable="false"/><Property Name="R_TEXT" Type="Edm.String" MaxLength="40"/><Property Name="QUANTITY" Type="Edm.Double"/></EntityType>
+			<EntityType Name="IOT_PLANType">
+				<Key><PropertyRef Name="ID_VSP"/><PropertyRef Name="PL_DATE"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="PL_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="V_FACTType">
+				<Key><PropertyRef Name="ID_VSP"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="F_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/><Property Name="NAME_VSP" Type="Edm.String" MaxLength="40"/></EntityType>
+			<EntityType Name="V_RESERVEType">
+				<Key><PropertyRef Name="R_TYPE"/></Key><Property Name="R_TYPE" Type="Edm.Int32" Nullable="false"/><Property Name="R_TEXT" Type="Edm.String" MaxLength="40"/><Property Name="QUANTITY" Type="Edm.Double"/></EntityType>
+			<EntityType Name="V_FORECASTType">
+				<Key><PropertyRef Name="FOR_DATE"/></Key><Property Name="FOR_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="V_PLANType">
+				<Key><PropertyRef Name="PL_DATE"/></Key><Property Name="PL_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="V_DETAILType">
+				<Key><PropertyRef Name="ID_VSP"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="NUM_DEV" Type="Edm.Int32"/><Property Name="QUAN_FACT" Type="Edm.Int32"/><Property Name="QUAN_PLAN" Type="Edm.Int32"/><Property Name="COLOR" Type="Edm.String" MaxLength="8"/><Property Name="NAME_VSP" Type="Edm.String" MaxLength="40"/><Property Name="ADDRESS" Type="Edm.String" MaxLength="100"/><Property Name="WATER_CAPACITY" Type="Edm.Int32"/><Property Name="WATER_MIN" Type="Edm.Int32"/></EntityType>
+			<EntityType Name="IOT_ORDERType">
+				<Key><PropertyRef Name="ID_VSP"/><PropertyRef Name="O_DATE"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="O_DATE" Type="Edm.DateTime" Nullable="false"/><Property Name="QUANTITY" Type="Edm.Int32"/><Property Name="DELIVERY" Type="Edm.Byte"/></EntityType>
+			<EntityType Name="IOT_ITEMType">
+				<Key><PropertyRef Name="ID_VSP"/><PropertyRef Name="ID_MATERIAL"/><PropertyRef Name="DATETIME"/><PropertyRef Name="DEB_KRE"/></Key><Property Name="ID_VSP" Type="Edm.Int32" Nullable="false"/><Property Name="ID_MATERIAL" Type="Edm.Int32" Nullable="false"/><Property Name="DATETIME" Type="Edm.DateTime" Nullable="false"/><Property Name="DEB_KRE" Type="Edm.String" Nullable="false" MaxLength="1"/><Property Name="QUANTITY" Type="Edm.Double"/></EntityType>
+			<Association Name="VSP_DEVICESType"><End Type="iot.iot.IOT_VSPType" Role="IOT_VSPPrincipal" Multiplicity="1"/><End Type="iot.iot.IOT_MAPType" Role="IOT_MAPDependent" Multiplicity="*"/>
+				<ReferentialConstraint>
+					<Principal Role="IOT_VSPPrincipal"><PropertyRef Name="ID_VSP"/></Principal>
+					<Dependent Role="IOT_MAPDependent"><PropertyRef Name="ID_VSP"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="iot" m:IsDefaultEntityContainer="true"><EntitySet Name="IOT_VSP" EntityType="iot.iot.IOT_VSPType"/><EntitySet Name="IOT_DEVICE_DATA" EntityType="iot.iot.IOT_DEVICE_DATAType"/><EntitySet Name="IOT_MAP" EntityType="iot.iot.IOT_MAPType"/><EntitySet Name="IOT_FORECAST" EntityType="iot.iot.IOT_FORECASTType"/><EntitySet Name="IOT_FACT" EntityType="iot.iot.IOT_FACTType"/><EntitySet Name="IOT_RESERVE" EntityType="iot.iot.IOT_RESERVEType"/><EntitySet Name="IOT_PLAN" EntityType="iot.iot.IOT_PLANType"/><EntitySet Name="V_FACT" EntityType="iot.iot.V_FACTType"/><EntitySet Name="V_RESERVE" EntityType="iot.iot.V_RESERVEType"/><EntitySet Name="V_FORECAST" EntityType="iot.iot.V_FORECASTType"/><EntitySet Name="V_PLAN" EntityType="iot.iot.V_PLANType"/><EntitySet Name="V_DETAIL" EntityType="iot.iot.V_DETAILType"/><EntitySet Name="IOT_ORDER" EntityType="iot.iot.IOT_ORDERType"/><EntitySet Name="IOT_ITEM" EntityType="iot.iot.IOT_ITEMType"/>
+				<AssociationSet Name="VSP_DEVICES" Association="iot.iot.VSP_DEVICESType"><End Role="IOT_VSPPrincipal" EntitySet="IOT_VSP"/><End Role="IOT_MAPDependent" EntitySet="IOT_MAP"/></AssociationSet>
+			</EntityContainer>
+		</Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
